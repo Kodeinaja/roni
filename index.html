@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoBike Bekas - Marketplace Mobil & Sepeda Bekas</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-green': '#10B981', // Hijau cerah / Emerald
+                        'brand-dark-green': '#047857',
+                        'brand-black': '#111827',
+                        'brand-dark': '#0B0F17'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Mengatur font utama menjadi Times New Roman sesuai permintaan */
+        body, input, select, textarea, button {
+            font-family: 'Times New Roman', Times, serif !important;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10B981;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-gray-100 min-h-screen flex flex-col selection:bg-brand-green selection:text-black">
+
+    <!-- NAVIGASI UTAMA -->
+    <header class="sticky top-0 z-50 bg-brand-dark/95 border-b border-brand-green/30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="filterCategory('all')">
+                    <div class="w-10 h-10 rounded-lg bg-brand-green flex items-center justify-center text-brand-black font-bold text-2xl shadow-lg shadow-brand-green/20">
+                        <i class="fa-solid font-bold fa-car-side"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold tracking-wider text-white">AUTO<span class="text-brand-green">BIKE</span></span>
+                        <span class="block text-xs text-brand-green tracking-widest -mt-1 uppercase">Bekas Berkualitas</span>
+                    </div>
+                </div>
+
+                <!-- Menu Navigasi Desktop -->
+                <nav class="hidden md:flex space-x-8 text-lg">
+                    <a href="#katalog" class="hover:text-brand-green transition-colors duration-200">Katalog Unit</a>
+                    <a href="#simulasi" class="hover:text-brand-green transition-colors duration-200">Simulasi Kredit</a>
+                    <a href="#titip-jual" class="hover:text-brand-green transition-colors duration-200">Titip Jual</a>
+                    <a href="#tentang" class="hover:text-brand-green transition-colors duration-200">Tentang Kami</a>
+                </nav>
+
+                <!-- Kontak WA Nav Header -->
+                <div class="hidden sm:block">
+                    <a href="https://wa.me/6281936425733?text=Halo%20AutoBike,%20saya%20ingin%20bertanya%20mengenai%20unit%20kendaraan%20bekas." 
+                       target="_blank" 
+                       class="inline-flex items-center space-x-2 bg-brand-green hover:bg-brand-dark-green text-brand-black hover:text-white px-5 py-2.5 rounded-full font-bold transition-all duration-300 shadow-md hover:shadow-brand-green/30">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <span>Hubungi Kami</span>
+                    </a>
+                </div>
+
+                <!-- Tombol Menu Mobile -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-brand-green focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-brand-green/20 px-4 pt-2 pb-4 space-y-2 text-lg">
+            <a href="#katalog" class="block py-2 text-gray-200 hover:text-brand-green">Katalog Unit</a>
+            <a href="#simulasi" class="block py-2 text-gray-200 hover:text-brand-green">Simulasi Kredit</a>
+            <a href="#titip-jual" class="block py-2 text-gray-200 hover:text-brand-green">Titip Jual</a>
+            <a href="#tentang" class="block py-2 text-gray-200 hover:text-brand-green">Tentang Kami</a>
+            <a href="https://wa.me/6281936425733?text=Halo%20AutoBike,%20saya%20ingin%20tanya%20unit." target="_blank" class="block text-center bg-brand-green text-black font-bold py-2 rounded-lg mt-2">
+                <i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp (081936425733)
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-gradient-to-b from-brand-dark via-brand-black to-brand-black py-20 border-b border-brand-green/20 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10B981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="inline-block px-4 py-1.5 bg-brand-green/10 border border-brand-green/30 rounded-full text-brand-green text-sm font-semibold mb-4 tracking-wider">
+                PASAR MOBIL & MOTOR/SEPEDA BEKAS TERPERCAYA
+            </span>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                Temukan Kendaraan Impian Anda <br class="hidden sm:inline"/>
+                Dengan <span class="text-brand-green underline decoration-brand-green/50">Harga Terbaik & Garansi Aman</span>
+            </h1>
+            <p class="max-w-2xl mx-auto text-xl text-gray-300 mb-8 italic">
+                Solusi jual beli mobil dan sepeda/motor bekas kondisi prima. Transaksi mudah, cepat, dan terhubung langsung via WhatsApp.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#katalog" class="bg-brand-green hover:bg-brand-dark-green text-brand-black hover:text-white px-8 py-4 rounded-xl text-xl font-bold transition-all duration-300 shadow-lg shadow-brand-green/20">
+                    <i class="fa-solid fa-car mr-2"></i> Lihat Katalog Unit
+                </a>
+                <a href="#titip-jual" class="border border-brand-green text-brand-green hover:bg-brand-green/10 px-8 py-4 rounded-xl text-xl font-bold transition-all duration-300">
+                    <i class="fa-solid fa-hand-holding-dollar mr-2"></i> Jual Kendaraan Anda
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION KATALOG PRODUK -->
+    <section id="katalog" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <!-- Header & Filter -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white border-l-4 border-brand-green pl-4">
+                    Katalog Kendaraan Bekas
+                </h2>
+                <p class="text-gray-400 mt-2 pl-4 text-lg">Pilih kategori atau cari unit favorit Anda</p>
+            </div>
+
+            <!-- Filter Kategori & Search -->
+            <div class="flex flex-wrap items-center gap-3">
+                <button onclick="filterCategory('all')" id="btn-all" class="filter-btn active bg-brand-green text-brand-black font-bold px-5 py-2.5 rounded-lg text-lg transition-all">
+                    Semua Unit
+                </button>
+                <button onclick="filterCategory('mobil')" id="btn-mobil" class="filter-btn bg-brand-dark border border-brand-green/30 text-gray-300 hover:text-brand-green font-bold px-5 py-2.5 rounded-lg text-lg transition-all">
+                    <i class="fa-solid fa-car mr-1"></i> Mobil
+                </button>
+                <button onclick="filterCategory('sepeda')" id="btn-sepeda" class="filter-btn bg-brand-dark border border-brand-green/30 text-gray-300 hover:text-brand-green font-bold px-5 py-2.5 rounded-lg text-lg transition-all">
+                    <i class="fa-solid fa-motorcycle mr-1"></i> Sepeda / Motor
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Input -->
+        <div class="mb-8 max-w-md">
+            <div class="relative">
+                <input type="text" id="search-input" onkeyup="searchVehicle()" placeholder="Cari merk atau nama kendaraan..." 
+                       class="w-full bg-brand-dark border border-brand-green/40 rounded-xl px-4 py-3 pl-11 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-brand-green text-lg">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-brand-green text-lg"></i>
+            </div>
+        </div>
+
+        <!-- Grid Products Container -->
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Data produk dipopulasikan lewat JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center py-16">
+            <i class="fa-solid fa-car-tunnel text-6xl text-gray-600 mb-4"></i>
+            <h3 class="text-2xl font-bold text-gray-400">Unit tidak ditemukan</h3>
+            <p class="text-gray-500 mt-1">Coba kata kunci lain atau pilih kategori yang berbeda.</p>
+        </div>
+    </section>
+
+    <!-- SIMULASI KREDIT / KALKULATOR SELESAI -->
+    <section id="simulasi" class="py-16 bg-brand-dark border-y border-brand-green/20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-white mb-2">Simulasi Angsuran Kredit</h2>
+                <p class="text-gray-400 text-lg">Hitung perkiraan angsuran bulanan untuk kendaraan idaman Anda</p>
+            </div>
+
+            <div class="bg-brand-black p-6 sm:p-8 rounded-2xl border border-brand-green/30 shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Harga Kendaraan (Rp)</label>
+                        <input type="number" id="calc-price" placeholder="Contoh: 150000000" value="120000000" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Uang Muka / DP (Rp)</label>
+                        <input type="number" id="calc-dp" placeholder="Contoh: 30000000" value="30000000" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Jangka Waktu (Tenor)</label>
+                        <select id="calc-tenor" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                            <option value="12">12 Bulan (1 Tahun)</option>
+                            <option value="24">24 Bulan (2 Tahun)</option>
+                            <option value="36" selected>36 Bulan (3 Tahun)</option>
+                            <option value="48">48 Bulan (4 Tahun)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Estimasi Bunga per Tahun (%)</label>
+                        <input type="number" id="calc-interest" value="8" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <button onclick="calculateCredit()" class="w-full sm:w-auto bg-brand-green hover:bg-brand-dark-green text-brand-black hover:text-white px-8 py-3 rounded-lg font-bold text-xl transition-all">
+                        Hitung Angsuran
+                    </button>
+
+                    <div class="text-right w-full sm:w-auto bg-brand-dark p-4 rounded-xl border border-brand-green/20">
+                        <span class="text-sm text-gray-400 block">Estimasi Cicilan / Bulan:</span>
+                        <span id="calc-result" class="text-2xl font-extrabold text-brand-green">Rp 3.100.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM TITIP JUAL KENDARAAN -->
+    <section id="titip-jual" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="bg-gradient-to-r from-brand-dark to-brand-black border border-brand-green/40 p-8 rounded-2xl shadow-2xl">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-white mb-2">Ingin Jual Mobil atau Sepeda Motor Anda?</h2>
+                <p class="text-gray-300 text-lg">Isi formulir di bawah ini, penawaran kami langsung terintegrasi ke WhatsApp admin.</p>
+            </div>
+
+            <form onsubmit="submitSellForm(event)" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Nama Lengkap</label>
+                        <input type="text" id="sell-name" required placeholder="Masukkan nama Anda" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Kategori Kendaraan</label>
+                        <select id="sell-category" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                            <option value="Mobil Bekas">Mobil Bekas</option>
+                            <option value="Sepeda Motor Bekas">Sepeda / Motor Bekas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Merk & Tipe Kendaraan</label>
+                        <input type="text" id="sell-model" required placeholder="Contoh: Honda Vario 150 / Avanza Veloz" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-2 font-bold text-lg">Tahun Pembuatan & Harga Ekspektasi</label>
+                        <input type="text" id="sell-year-price" required placeholder="Contoh: Th 2019 - Rp 15.000.000" class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-2 font-bold text-lg">Kondisi / Catatan Kendaraan</label>
+                    <textarea id="sell-condition" rows="3" placeholder="Jelaskan kondisi mesin, surat-surat (STNK/BPKB), dan pajak..." class="w-full bg-brand-dark border border-gray-700 rounded-lg p-3 text-white focus:border-brand-green focus:outline-none text-lg"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-brand-green hover:bg-brand-dark-green text-brand-black hover:text-white font-bold py-4 rounded-xl text-xl transition-all duration-300 shadow-lg flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <span>Kirim Penawaran via WhatsApp</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- TENTANG KAMI & KEUNGGULAN -->
+    <section id="tentang" class="py-16 bg-brand-dark border-t border-brand-green/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-white mb-3">Mengapa Memilih AutoBike?</h2>
+                <p class="text-gray-400 text-lg">Keunggulan layanan jual beli kendaraan bekas tempat kami</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-brand-black p-6 rounded-xl border border-brand-green/20 text-center">
+                    <div class="w-16 h-16 bg-brand-green/10 text-brand-green rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Kondisi Terinspeksi</h3>
+                    <p class="text-gray-400">Semua unit mobil dan sepeda motor telah melewati tahap pengecekan fisik dan mesin secara mendalam.</p>
+                </div>
+                <div class="bg-brand-black p-6 rounded-xl border border-brand-green/20 text-center">
+                    <div class="w-16 h-16 bg-brand-green/10 text-brand-green rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Surat-Surat Lengkap</h3>
+                    <p class="text-gray-400">Jaminan keabsahan dokumen legalitas seperti STNK, BPKB, dan faktur kendaraan 100% aman.</p>
+                </div>
+                <div class="bg-brand-black p-6 rounded-xl border border-brand-green/20 text-center">
+                    <div class="w-16 h-16 bg-brand-green/10 text-brand-green rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Respon Cepat WA</h3>
+                    <p class="text-gray-400">Tanya jawab, nego harga, hingga penjadwalan cek unit di lokasi langsung via WhatsApp 081936425733.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-black border-t border-gray-800 py-10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <span class="text-2xl font-bold tracking-wider text-white">AUTO<span class="text-brand-green">BIKE</span></span>
+                <p class="text-gray-500 text-base mt-1">Tugas Project Website Jual Beli Online - Kelas 12</p>
+            </div>
+
+            <div class="text-gray-400 text-center md:text-right">
+                <p class="text-lg">Hubungi via WhatsApp: <a href="https://wa.me/6281936425733" class="text-brand-green font-bold hover:underline">081936425733</a></p>
+                <p class="text-sm text-gray-500 mt-1">&copy; 2026 AutoBike. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DETAIL KENDARAAN -->
+    <div id="detail-modal" class="fixed inset-0 bg-black/80 hidden z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-brand-dark border border-brand-green/40 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative text-gray-200">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="modal-content">
+                <!-- Data Detail diisi via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Data Dummy Katalog Mobil & Sepeda Motor Bekas
+        const products = [
+            {
+                id: "MBL-001",
+                category: "mobil",
+                title: "Honda Brio Satya E CVT 2020",
+                price: 138000000,
+                priceFormatted: "Rp 138.000.000",
+                year: "2020",
+                km: "35.000 km",
+                transmisi: "Otomatis (CVT)",
+                bbm: "Bensin",
+                image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80",
+                desc: "Kondisi sangat mulus, servis rutin bengkel resmi Honda, interior bersih wangi, pajak panjang."
+            },
+            {
+                id: "SPD-001",
+                category: "sepeda",
+                title: "Yamaha NMAX 155 ABS 2021",
+                price: 26500000,
+                priceFormatted: "Rp 26.500.000",
+                year: "2021",
+                km: "18.000 km",
+                transmisi: "Otomatis",
+                bbm: "Bensin",
+                image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=800&q=80",
+                desc: "Motor rawatan, bodi mulus dilapisi skotlet, ban tebal depan belakang, surat-surat lengkap."
+            },
+            {
+                id: "MBL-002",
+                category: "mobil",
+                title: "Toyota Avanza Veloz 1.5 AT 2018",
+                price: 165000000,
+                priceFormatted: "Rp 165.000.000",
+                year: "2018",
+                km: "52.000 km",
+                transmisi: "Otomatis",
+                bbm: "Bensin",
+                image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
+                desc: "Mobil keluarga siap pakai luar kota, AC dingin menggigil, kaki-kaki empuk tidak ada bunyi."
+            },
+            {
+                id: "SPD-002",
+                category: "sepeda",
+                title: "Honda Vespa Matic LX 125 i-get 2019",
+                price: 31000000,
+                priceFormatted: "Rp 31.000.000",
+                year: "2019",
+                km: "14.000 km",
+                transmisi: "Otomatis",
+                bbm: "Bensin",
+                image: "https://images.unsplash.com/photo-1609630926942-039f7e62d640?auto=format&fit=crop&w=800&q=80",
+                desc: "Warna favorit (Kuning), mesin standar pabrik halus, kelistrikan lancar, kunci cokelat & biru ada."
+            },
+            {
+                id: "MBL-003",
+                category: "mobil",
+                title: "Mitsubishi Pajero Sport Dakar 4x2 2017",
+                price: 375000000,
+                priceFormatted: "Rp 375.000.000",
+                year: "2017",
+                km: "68.000 km",
+                transmisi: "Otomatis",
+                bbm: "Diesel",
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
+                desc: "Sunroof berfungsi normal, interior kulit original, mesin sangat bertenaga, siap pakai."
+            },
+            {
+                id: "SPD-003",
+                category: "sepeda",
+                title: "Kawasaki Ninja 250 FI ABS 2018",
+                price: 42000000,
+                priceFormatted: "Rp 42.000.000",
+                year: "2018",
+                km: "12.000 km",
+                transmisi: "Manual",
+                bbm: "Bensin",
+                image: "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=800&q=80",
+                desc: "Knalpot racing terpasang (ori ada), motor jarang pakai, cat ori kinclong tanpa goresan."
+            }
+        ];
+
+        const targetWA = "6281936425733";
+
+        // Render Katalog Kendaraan
+        function renderProducts(items) {
+            const container = document.getElementById('product-grid');
+            const emptyState = document.getElementById('empty-state');
+            container.innerHTML = '';
+
+            if (items.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            items.forEach(item => {
+                // Link WA terformat otomatis untuk masing-masing item
+                const waMessage = encodeURIComponent(
+                    `Halo Admin AutoBike, saya berminat untuk memesan/tanya unit berikut:\n\n` +
+                    `*Nama Unit:* ${item.title}\n` +
+                    `*ID Unit:* ${item.id}\n` +
+                    `*Harga:* ${item.priceFormatted}\n` +
+                    `*Tahun:* ${item.year}\n\n` +
+                    `Apakah unit ini masih tersedia?`
+                );
+                const waUrl = `https://wa.me/${targetWA}?text=${waMessage}`;
+
+                const card = document.createElement('div');
+                card.className = 'bg-brand-dark border border-brand-green/20 hover:border-brand-green rounded-2xl overflow-hidden shadow-lg hover:shadow-brand-green/10 transition-all duration-300 flex flex-col';
+
+                card.innerHTML = `
+                    <div class="relative h-48 bg-gray-900 overflow-hidden group">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/111827/10B981?text=Gambar+Kendaraan'">
+                        <span class="absolute top-3 left-3 bg-brand-black/80 border border-brand-green text-brand-green text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                            ${item.category === 'mobil' ? '<i class="fa-solid fa-car mr-1"></i> Mobil' : '<i class="fa-solid fa-motorcycle mr-1"></i> Sepeda Motor'}
+                        </span>
+                    </div>
+
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-2 line-clamp-1">${item.title}</h3>
+                            <div class="text-brand-green text-2xl font-extrabold mb-4">${item.priceFormatted}</div>
+                            
+                            <div class="grid grid-cols-2 gap-2 text-sm text-gray-300 mb-4 bg-brand-black/60 p-3 rounded-lg border border-gray-800">
+                                <div><i class="fa-regular fa-calendar-check text-brand-green mr-1"></i> ${item.year}</div>
+                                <div><i class="fa-solid fa-gauge text-brand-green mr-1"></i> ${item.km}</div>
+                                <div><i class="fa-solid fa-gear text-brand-green mr-1"></i> ${item.transmisi}</div>
+                                <div><i class="fa-solid fa-gas-pump text-brand-green mr-1"></i> ${item.bbm}</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 mt-2">
+                            <a href="${waUrl}" target="_blank" class="w-full bg-brand-green hover:bg-brand-dark-green text-brand-black hover:text-white font-bold py-3 rounded-xl transition-colors duration-200 flex items-center justify-center space-x-2 text-lg">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                                <span>Pesan via WhatsApp</span>
+                            </a>
+                            <button onclick="openModal('${item.id}')" class="w-full bg-transparent border border-gray-700 hover:border-brand-green text-gray-300 hover:text-brand-green font-bold py-2 rounded-xl text-base transition-colors">
+                                Detail Spesifikasi
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filter Kategori
+        function filterCategory(category) {
+            // Update tampilan tombol aktif
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-brand-green', 'text-brand-black');
+                btn.classList.add('bg-brand-dark', 'text-gray-300');
+            });
+
+            const activeBtn = document.getElementById(`btn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-brand-dark', 'text-gray-300');
+                activeBtn.classList.add('bg-brand-green', 'text-brand-black');
+            }
+
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+        }
+
+        // Search Kendaraan
+        function searchVehicle() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.title.toLowerCase().includes(query) || 
+                p.category.toLowerCase().includes(query) ||
+                p.desc.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        }
+
+        // Modal Detail Produk
+        function openModal(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+
+            const waMessage = encodeURIComponent(
+                `Halo Admin AutoBike, saya berminat dengan unit berikut setelah melihat detailnya:\n\n` +
+                `*Nama Unit:* ${item.title}\n` +
+                `*ID Unit:* ${item.id}\n` +
+                `*Harga:* ${item.priceFormatted}\n\n` +
+                `Bisa bantu info kelanjutan transaksinya?`
+            );
+            const waUrl = `https://wa.me/${targetWA}?text=${waMessage}`;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <img src="${item.image}" alt="${item.title}" class="w-full h-64 object-cover rounded-xl mb-4 border border-brand-green/30" onerror="this.src='https://placehold.co/600x400/111827/10B981?text=Gambar+Kendaraan'">
+                <div class="inline-block bg-brand-green/20 border border-brand-green text-brand-green text-xs font-bold px-3 py-1 rounded-full uppercase mb-2">
+                    ID: ${item.id}
+                </div>
+                <h3 class="text-3xl font-bold text-white mb-2">${item.title}</h3>
+                <div class="text-2xl font-extrabold text-brand-green mb-4">${item.priceFormatted}</div>
+                
+                <h4 class="text-lg font-bold text-white mb-2 border-b border-gray-700 pb-1">Spesifikasi Kendaraan</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-base text-gray-300 mb-6 bg-brand-black p-4 rounded-xl">
+                    <div><span class="block text-gray-500 text-xs">Tahun</span>${item.year}</div>
+                    <div><span class="block text-gray-500 text-xs">Kilometer</span>${item.km}</div>
+                    <div><span class="block text-gray-500 text-xs">Transmisi</span>${item.transmisi}</div>
+                    <div><span class="block text-gray-500 text-xs">Bahan Bakar</span>${item.bbm}</div>
+                </div>
+
+                <h4 class="text-lg font-bold text-white mb-2 border-b border-gray-700 pb-1">Deskripsi Kondisi</h4>
+                <p class="text-gray-300 mb-6 leading-relaxed italic text-lg">"${item.desc}"</p>
+
+                <a href="${waUrl}" target="_blank" class="w-full bg-brand-green hover:bg-brand-dark-green text-brand-black hover:text-white font-bold py-3.5 rounded-xl transition-all text-center flex items-center justify-center space-x-2 text-xl shadow-lg">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <span>Pesan Sekarang via WA (081936425733)</span>
+                </a>
+            `;
+
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Kalkulator Simulasi Kredit
+        function calculateCredit() {
+            const price = parseFloat(document.getElementById('calc-price').value) || 0;
+            const dp = parseFloat(document.getElementById('calc-dp').value) || 0;
+            const tenor = parseInt(document.getElementById('calc-tenor').value) || 12;
+            const interestRate = parseFloat(document.getElementById('calc-interest').value) || 0;
+
+            const pokokHutang = price - dp;
+            if (pokokHutang <= 0) {
+                document.getElementById('calc-result').innerText = "DP Melebihi/Sama Dengan Harga";
+                return;
+            }
+
+            const totalBunga = pokokHutang * (interestRate / 100) * (tenor / 12);
+            const totalHutang = pokokHutang + totalBunga;
+            const angsuranPerBulan = Math.round(totalHutang / tenor);
+
+            const formatted = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(angsuranPerBulan);
+            document.getElementById('calc-result').innerText = `${formatted} / bln`;
+        }
+
+        // Submit Form Titip Jual ke WA
+        function submitSellForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('sell-name').value;
+            const category = document.getElementById('sell-category').value;
+            const model = document.getElementById('sell-model').value;
+            const yearPrice = document.getElementById('sell-year-price').value;
+            const condition = document.getElementById('sell-condition').value;
+
+            const text = encodeURIComponent(
+                `*PENAWARAN TITIP JUAL KENDARAAN*\n\n` +
+                `*Nama Pemilik:* ${name}\n` +
+                `*Kategori:* ${category}\n` +
+                `*Merk & Tipe:* ${model}\n` +
+                `*Tahun & Harga:* ${yearPrice}\n` +
+                `*Kondisi / Catatan:* ${condition || '-'}\n\n` +
+                `Mohon diproses untuk penawarannya admin. Terima kasih!`
+            );
+
+            window.open(`https://wa.me/${targetWA}?text=${text}`, '_blank');
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Initialize Load
+        window.onload = function() {
+            renderProducts(products);
+            calculateCredit();
+        };
+    </script>
+</body>
+</html>
